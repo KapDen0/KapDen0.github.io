@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Основные SEO теги -->
-    <title>Отсчет до Нового Года 2027 | Таймер с фейерверками и музыкой</title>
+    <title>Отсчет до Нового Года 2027 | Таймер с фейерверками</title>
     <meta name="description" content="Красивый отсчет до Нового года с фейерверками, музыкой и ёлкой. Смотри сколько осталось дней, часов, минут и секунд до 2027 года.">
-    <meta name="keywords" content="новый год 2027, отсчет времени, таймер, фейерверки, новогодняя музыка, сколько осталось до нового года">
+    <meta name="keywords" content="новый год 2027, отсчет времени, таймер, фейерверки, сколько осталось до нового года">
     
     <!-- Open Graph для соцсетей -->
     <meta property="og:title" content="Отсчет до Нового Года 2027">
     <meta property="og:description" content="Праздничный таймер с фейерверками! Смотри сколько осталось до Нового года.">
     <meta property="og:url" content="https://kapden0.github.io">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://kapden0.github.io/preview.jpg">
     
     <!-- Иконка сайта -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%234fc3f7'/%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='white' font-family='Arial'%3E🎄%3C/text%3E%3C/svg%3E">
     
-    <!-- Canvas для фейерверков -->
     <style>
         * {
             margin: 0;
@@ -34,7 +34,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 20px 20px 40px;
             position: relative;
         }
         
@@ -67,17 +67,25 @@
         
         .subtitle {
             font-size: 1.2rem;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: #bbdefb;
             opacity: 0.9;
         }
         
-        /* Ёлка с гирляндой */
+        /* Верхняя панель с ёлкой и музыкой */
+        .top-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        /* Ёлка с гирляндой - ИСПРАВЛЕНО */
         .tree-container {
             position: relative;
             width: 200px;
-            height: 300px;
-            margin: 0 auto 30px;
+            height: 250px;
+            margin: 0 auto 20px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -90,44 +98,49 @@
             position: relative;
             width: 0;
             height: 0;
-            border-left: 80px solid transparent;
-            border-right: 80px solid transparent;
-            border-bottom: 150px solid #2e7d32;
+            border-left: 90px solid transparent;
+            border-right: 90px solid transparent;
+            border-bottom: 160px solid #2e7d32;
             margin: 0 auto;
+            z-index: 2;
         }
         
         .tree::before {
             content: '';
             position: absolute;
-            top: 40px;
-            left: -60px;
+            top: 30px;
+            left: -70px;
             width: 0;
             height: 0;
-            border-left: 60px solid transparent;
-            border-right: 60px solid transparent;
-            border-bottom: 120px solid #43a047;
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-bottom: 130px solid #43a047;
+            z-index: 1;
         }
         
         .tree::after {
             content: '';
             position: absolute;
-            top: 100px;
-            left: -40px;
+            top: 80px;
+            left: -50px;
             width: 0;
             height: 0;
-            border-left: 40px solid transparent;
-            border-right: 40px solid transparent;
-            border-bottom: 80px solid #66bb6a;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 90px solid #66bb6a;
+            z-index: 1;
         }
         
         .tree-trunk {
             position: absolute;
-            bottom: -30px;
-            left: -15px;
-            width: 30px;
-            height: 40px;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 45px;
             background-color: #8b5a2b;
             border-radius: 5px;
+            z-index: 0;
         }
         
         .garland {
@@ -137,6 +150,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 3;
         }
         
         .light {
@@ -145,6 +159,7 @@
             height: 10px;
             border-radius: 50%;
             animation: blink 1s infinite;
+            box-shadow: 0 0 10px currentColor;
         }
         
         .star {
@@ -154,19 +169,95 @@
             transform: translateX(-50%);
             font-size: 40px;
             animation: starTwinkle 1.5s infinite;
+            z-index: 4;
+            text-shadow: 0 0 15px gold;
         }
         
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
         }
         
         @keyframes starTwinkle {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.2); }
+            0%, 100% { transform: translateX(-50%) scale(1); text-shadow: 0 0 15px gold; }
+            50% { transform: translateX(-50%) scale(1.2); text-shadow: 0 0 30px gold; }
         }
         
-        /* Элементы управления */
+        /* Музыкальные кнопки под ёлкой */
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        
+        .music-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .music-btn:hover {
+            background: rgba(79, 195, 247, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #4fc3f7;
+        }
+        
+        .music-btn.playing {
+            background: #4fc3f7;
+            color: #0c1a2d;
+            box-shadow: 0 0 20px #4fc3f7;
+        }
+        
+        /* Выбор часового пояса */
+        .timezone-selector {
+            margin: 20px 0 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .timezone-selector label {
+            color: #bbdefb;
+            font-size: 1.1rem;
+        }
+        
+        .timezone-selector select {
+            padding: 10px 25px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 1rem;
+            cursor: pointer;
+            outline: none;
+            backdrop-filter: blur(5px);
+        }
+        
+        .timezone-selector select option {
+            background: #1a3a5f;
+            color: white;
+        }
+        
+        .timezone-selector select:hover {
+            background: rgba(79, 195, 247, 0.3);
+        }
+        
+        /* Панель управления форматом */
         .controls-panel {
             background-color: rgba(255, 255, 255, 0.08);
             border-radius: 15px;
@@ -174,6 +265,7 @@
             margin-bottom: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
         }
         
         .format-selector {
@@ -181,7 +273,6 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 25px;
         }
         
         .format-btn {
@@ -194,11 +285,13 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
         }
         
         .format-btn:hover {
-            background-color: rgba(79, 195, 247, 0.2);
+            background-color: rgba(79, 195, 247, 0.3);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 195, 247, 0.3);
         }
         
         .format-btn.active {
@@ -206,110 +299,6 @@
             color: #0c1a2d;
             font-weight: 600;
             box-shadow: 0 0 15px rgba(79, 195, 247, 0.7);
-        }
-        
-        /* Выбор часового пояса */
-        .timezone-selector {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .timezone-selector select {
-            padding: 10px 20px;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            font-size: 1rem;
-            cursor: pointer;
-            outline: none;
-        }
-        
-        .timezone-selector select option {
-            background: #1a3a5f;
-            color: white;
-        }
-        
-        .timezone-selector select:hover {
-            background: rgba(79, 195, 247, 0.3);
-        }
-        
-        /* Кнопки управления музыкой */
-        .music-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .music-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .music-btn:hover {
-            background: rgba(79, 195, 247, 0.3);
-            transform: scale(1.1);
-        }
-        
-        .music-btn.playing {
-            background: #4fc3f7;
-            color: #0c1a2d;
-        }
-        
-        /* Кнопки поделиться */
-        .share-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        
-        .share-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-        }
-        
-        .share-btn.vk {
-            background: #4a76a8;
-        }
-        
-        .share-btn.telegram {
-            background: #0088cc;
-        }
-        
-        .share-btn.whatsapp {
-            background: #25D366;
-        }
-        
-        .share-btn.copy {
-            background: #6c757d;
-        }
-        
-        .share-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
         /* Таймер */
@@ -320,6 +309,7 @@
             margin: 30px 0;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
         }
         
         .countdown-display {
@@ -338,19 +328,21 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
         
         .time-unit.highlight {
-            background: rgba(79, 195, 247, 0.15);
+            background: rgba(79, 195, 247, 0.2);
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(79, 195, 247, 0.4);
+            box-shadow: 0 0 30px rgba(79, 195, 247, 0.4);
+            border-color: #4fc3f7;
         }
         
         .time-value {
             font-size: 3.5rem;
             font-weight: 700;
             color: #4fc3f7;
-            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+            text-shadow: 0 0 15px rgba(79, 195, 247, 0.7);
             line-height: 1;
             margin-bottom: 5px;
         }
@@ -374,21 +366,124 @@
             font-size: 2.2rem;
             color: #ffeb3b;
             margin-top: 30px;
-            text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);
+            text-shadow: 0 0 15px rgba(255, 235, 59, 0.7);
         }
         
         .new-year-message {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: #ffeb3b;
-            text-shadow: 0 0 15px rgba(255, 235, 59, 0.7);
+            text-shadow: 0 0 20px rgba(255, 235, 59, 0.8);
             animation: pulse 1.5s infinite;
             margin-top: 20px;
+            font-weight: bold;
         }
         
         @keyframes pulse {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
+            0% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.8; transform: scale(1); }
+        }
+        
+        /* Кнопки поделиться - ПЕРЕМЕЩЕНЫ ВНИЗ */
+        .share-section {
+            margin: 40px 0 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .share-title {
+            color: #bbdefb;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+        }
+        
+        .share-btn.vk {
+            background: #4a76a8;
+        }
+        
+        .share-btn.telegram {
+            background: #0088cc;
+        }
+        
+        .share-btn.whatsapp {
+            background: #25D366;
+        }
+        
+        .share-btn.copy {
+            background: #6c757d;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            filter: brightness(1.1);
+        }
+        
+        /* Счетчик посетителей */
+        .visitor-counter {
+            margin: 20px 0;
+            color: #bbdefb;
+            font-size: 0.95rem;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        /* Футер с подписью */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #90a4c2;
+            font-size: 0.95rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .creator-credit {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #bbdefb;
+            background: rgba(79, 195, 247, 0.15);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+        }
+        
+        .creator-credit a {
+            color: #4fc3f7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .creator-credit a:hover {
+            text-decoration: underline;
         }
         
         /* Снежинки (улучшенные) */
@@ -407,9 +502,10 @@
             color: #fff;
             user-select: none;
             cursor: default;
-            opacity: 0.8;
+            opacity: 0.7;
             animation: fall linear infinite;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            text-shadow: 0 0 10px rgba(255,255,255,0.7);
+            filter: drop-shadow(0 0 5px rgba(79, 195, 247, 0.5));
         }
         
         @keyframes fall {
@@ -417,13 +513,7 @@
             100% { transform: translateY(100vh) rotate(360deg); }
         }
         
-        footer {
-            margin-top: 30px;
-            color: #bbdefb;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-        
+        /* Адаптация под мобильные */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -449,6 +539,12 @@
             .format-btn {
                 padding: 10px 15px;
                 font-size: 0.9rem;
+            }
+            
+            .timezone-selector {
+                flex-direction: column;
+                gap: 10px;
+                border-radius: 20px;
             }
         }
         
@@ -477,6 +573,11 @@
             .seconds-only .time-value {
                 font-size: 2.8rem;
             }
+            
+            .share-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -485,51 +586,59 @@
     <canvas id="fireworks-canvas"></canvas>
     
     <div class="container">
-        <!-- Ёлка с гирляндой -->
-        <div class="tree-container" onclick="toggleMusic()">
-            <div class="tree">
-                <div class="star">⭐</div>
-                <div class="garland" id="garland"></div>
+        <!-- Верхняя панель с ёлкой (ИСПРАВЛЕНО) -->
+        <div class="top-panel">
+            <div class="tree-container" onclick="toggleMusic()">
+                <div class="tree">
+                    <div class="star">⭐</div>
+                    <div class="garland" id="garland"></div>
+                </div>
+                <div class="tree-trunk"></div>
             </div>
-            <div class="tree-trunk"></div>
-        </div>
-        
-        <h1>Отсчет до Нового Года</h1>
-        <p class="subtitle">Нажмите на ёлку чтобы включить/выключить музыку</p>
-        
-        <!-- Музыкальные кнопки -->
-        <div class="music-controls">
-            <button class="music-btn" id="playMusicBtn" onclick="toggleMusic()">▶️</button>
-            <button class="music-btn" id="volumeUpBtn" onclick="changeVolume(0.1)">🔊+</button>
-            <button class="music-btn" id="volumeDownBtn" onclick="changeVolume(-0.1)">🔊-</button>
+            
+            <!-- Музыкальные кнопки под ёлкой -->
+            <div class="music-controls">
+                <button class="music-btn" id="playMusicBtn" onclick="toggleMusic()" title="Вкл/Выкл музыку">▶️</button>
+                <button class="music-btn" id="volumeUpBtn" onclick="changeVolume(0.1)" title="Громче">🔊+</button>
+                <button class="music-btn" id="volumeDownBtn" onclick="changeVolume(-0.1)" title="Тише">🔊-</button>
+            </div>
+            
+            <p class="subtitle">👇 Нажми на ёлку чтобы включить музыку 👇</p>
         </div>
         
         <!-- Выбор часового пояса -->
         <div class="timezone-selector">
-            <label>Часовой пояс:</label>
+            <label>🌍 Часовой пояс:</label>
             <select id="timezone" onchange="changeTimezone()">
                 <option value="0">Москва (MSK)</option>
-                <option value="3">Калининград (+1)</option>
+                <option value="1">Калининград (+1)</option>
                 <option value="2">Самара (+2)</option>
-                <option value="5">Екатеринбург (+5)</option>
+                <option value="3">Уфа (+3)</option>
+                <option value="4">Екатеринбург (+4)</option>
+                <option value="5">Омск (+5)</option>
+                <option value="6">Новосибирск (+6)</option>
                 <option value="7">Красноярск (+7)</option>
                 <option value="8">Иркутск (+8)</option>
                 <option value="9">Якутск (+9)</option>
-                <option value="11">Камчатка (+11)</option>
-                <option value="-5">Минск (-5)</option>
-                <option value="-8">Лондон (-8)</option>
-                <option value="-13">Нью-Йорк (-13)</option>
+                <option value="10">Владивосток (+10)</option>
+                <option value="11">Магадан (+11)</option>
+                <option value="12">Камчатка (+12)</option>
+                <option value="-1">Минск (-1)</option>
+                <option value="-2">Киев (-2)</option>
+                <option value="-3">Тбилиси (-3)</option>
+                <option value="-5">Лондон (-5)</option>
+                <option value="-8">Нью-Йорк (-8)</option>
             </select>
         </div>
         
         <!-- Панель управления форматом -->
         <div class="controls-panel">
             <div class="format-selector">
-                <button class="format-btn active" data-format="all">Все единицы времени</button>
-                <button class="format-btn" data-format="days">Только в днях</button>
-                <button class="format-btn" data-format="hours">Только в часах</button>
-                <button class="format-btn" data-format="minutes">Только в минутах</button>
-                <button class="format-btn" data-format="seconds">Только в секундах</button>
+                <button class="format-btn active" data-format="all">Все единицы</button>
+                <button class="format-btn" data-format="days">Только дни</button>
+                <button class="format-btn" data-format="hours">Только часы</button>
+                <button class="format-btn" data-format="minutes">Только минуты</button>
+                <button class="format-btn" data-format="seconds">Только секунды</button>
             </div>
         </div>
         
@@ -542,35 +651,43 @@
             <div id="newYearMessage" class="new-year-message" style="display: none;"></div>
         </div>
         
-        <!-- Кнопки поделиться -->
-        <div class="share-buttons">
-            <button class="share-btn vk" onclick="share('vk')">
-                <span>📱</span> ВКонтакте
-            </button>
-            <button class="share-btn telegram" onclick="share('telegram')">
-                <span>📱</span> Telegram
-            </button>
-            <button class="share-btn whatsapp" onclick="share('whatsapp')">
-                <span>📱</span> WhatsApp
-            </button>
-            <button class="share-btn copy" onclick="copyLink()">
-                <span>📋</span> Копировать ссылку
-            </button>
+        <!-- Кнопки поделиться (ПЕРЕМЕЩЕНЫ СЮДА) -->
+        <div class="share-section">
+            <div class="share-title">🎁 Поделись праздником с друзьями:</div>
+            <div class="share-buttons">
+                <button class="share-btn vk" onclick="share('vk')">
+                    <span>📱</span> ВКонтакте
+                </button>
+                <button class="share-btn telegram" onclick="share('telegram')">
+                    <span>📱</span> Telegram
+                </button>
+                <button class="share-btn whatsapp" onclick="share('whatsapp')">
+                    <span>📱</span> WhatsApp
+                </button>
+                <button class="share-btn copy" onclick="copyLink()">
+                    <span>📋</span> Скопировать
+                </button>
+            </div>
         </div>
         
         <!-- Счетчик посетителей -->
-        <div style="margin: 20px 0; color: #bbdefb; font-size: 0.9rem;">
+        <div class="visitor-counter">
             <span>👁️ Просмотров: </span>
             <span id="visitor-counter">1</span>
         </div>
-        
-        <footer>
-            <p>Создано с ❄️ для встречи Нового года</p>
-            <p>Обновляется в реальном времени</p>
-        </footer>
     </div>
     
+    <!-- Снежинки -->
     <div class="snowflakes" id="snowflakes"></div>
+    
+    <!-- Футер с подписью (ЗДЕСЬ УКАЗАЛ ТЕБЯ) -->
+    <footer>
+        <p>❄️ Сайт создан с любовью к Новому году ❄️</p>
+        <div class="creator-credit">
+            ✨ Разработано <a href="https://github.com/KapDen0" target="_blank">KapDen0</a> при поддержке ИИ ✨
+        </div>
+        <p style="margin-top: 15px; font-size: 0.8rem;">Обновляется в реальном времени | © 2026</p>
+    </footer>
 
     <!-- Аудио элемент для музыки -->
     <audio id="newyear-music" loop preload="auto">
@@ -581,35 +698,52 @@
     <script>
         // ==================== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ====================
         let currentFormat = 'all';
-        let timezoneOffset = 0; // смещение от Московского времени
+        let timezoneOffset = 0;
         let musicPlaying = false;
         let fireworksActive = false;
         let audio = document.getElementById('newyear-music');
         
-        // ==================== ФУНКЦИИ ДЛЯ ЁЛКИ И ГИРЛЯНДЫ ====================
+        // ==================== ЁЛКА И ГИРЛЯНДА ====================
         function createGarland() {
             const garland = document.getElementById('garland');
-            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            if (!garland) return;
             
-            for (let i = 0; i < 20; i++) {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#ff0088'];
+            
+            // Очищаем старую гирлянду
+            garland.innerHTML = '';
+            
+            // Создаем огоньки по спирали ёлки
+            for (let i = 0; i < 30; i++) {
                 const light = document.createElement('div');
                 light.className = 'light';
                 light.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                light.style.left = Math.random() * 100 + '%';
-                light.style.top = Math.random() * 100 + '%';
+                
+                // Распределяем по ёлке
+                const angle = (i / 30) * Math.PI * 2;
+                const radius = 40 + Math.random() * 30;
+                light.style.left = 50 + Math.cos(angle) * radius + '%';
+                light.style.top = 20 + Math.sin(angle) * 40 + 20 + '%';
+                
                 light.style.animationDelay = Math.random() * 2 + 's';
+                light.style.animationDuration = 0.8 + Math.random() * 0.7 + 's';
+                
                 garland.appendChild(light);
             }
         }
         
-        // ==================== ФУНКЦИИ ДЛЯ МУЗЫКИ ====================
+        // ==================== МУЗЫКА ====================
         function toggleMusic() {
             if (musicPlaying) {
                 audio.pause();
                 document.getElementById('playMusicBtn').textContent = '▶️';
                 document.getElementById('playMusicBtn').classList.remove('playing');
             } else {
-                audio.play().catch(e => console.log('Автовоспроизведение заблокировано'));
+                audio.volume = 0.5;
+                audio.play().catch(e => {
+                    console.log('Автовоспроизведение заблокировано браузером');
+                    alert('Нажми на ёлку ещё раз после того как взаимодействовал со страницей');
+                });
                 document.getElementById('playMusicBtn').textContent = '⏸️';
                 document.getElementById('playMusicBtn').classList.add('playing');
             }
@@ -620,16 +754,16 @@
             audio.volume = Math.min(1, Math.max(0, audio.volume + delta));
         }
         
-        // ==================== ФУНКЦИИ ДЛЯ ЧАСОВОГО ПОЯСА ====================
+        // ==================== ЧАСОВОЙ ПОЯС ====================
         function changeTimezone() {
             timezoneOffset = parseInt(document.getElementById('timezone').value);
             updateCountdown();
         }
         
-        // ==================== ФУНКЦИИ ДЛЯ КНОПОК ПОДЕЛИТЬСЯ ====================
+        // ==================== ПОДЕЛИТЬСЯ ====================
         function share(platform) {
             const url = encodeURIComponent('https://kapden0.github.io');
-            const text = encodeURIComponent('Смотри сколько осталось до Нового года! 🎄');
+            const text = encodeURIComponent('❄️ Смотри сколько осталось до Нового года! Красивый таймер с фейерверками и ёлкой 🎄');
             
             let shareUrl = '';
             
@@ -650,19 +784,21 @@
         
         function copyLink() {
             navigator.clipboard.writeText('https://kapden0.github.io').then(() => {
-                alert('Ссылка скопирована!');
+                alert('✅ Ссылка скопирована! Отправь друзьям');
+            }).catch(() => {
+                alert('❌ Не удалось скопировать, но вот ссылка: https://kapden0.github.io');
             });
         }
         
-        // ==================== ФУНКЦИИ ДЛЯ ФЕЙЕРВЕРКОВ ====================
+        // ==================== ФЕЙЕРВЕРКИ ====================
         class Firework {
             constructor(canvas, ctx) {
                 this.canvas = canvas;
                 this.ctx = ctx;
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height * 0.5;
-                this.vx = (Math.random() - 0.5) * 2;
-                this.vy = Math.random() * -5 - 2;
+                this.y = Math.random() * canvas.height * 0.4;
+                this.vx = (Math.random() - 0.5) * 3;
+                this.vy = Math.random() * -6 - 3;
                 this.particles = [];
                 this.exploded = false;
             }
@@ -671,7 +807,7 @@
                 if (!this.exploded) {
                     this.x += this.vx;
                     this.y += this.vy;
-                    this.vy += 0.1;
+                    this.vy += 0.15;
                     
                     if (this.vy >= 0) {
                         this.explode();
@@ -688,13 +824,13 @@
             
             explode() {
                 this.exploded = true;
-                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#ff0088'];
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#ff0088', '#ff4444', '#44ff44'];
                 
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 60; i++) {
                     this.particles.push(new Particle(
                         this.x, this.y,
-                        (Math.random() - 0.5) * 6,
-                        (Math.random() - 0.5) * 6,
+                        (Math.random() - 0.5) * 8,
+                        (Math.random() - 0.5) * 8,
                         colors[Math.floor(Math.random() * colors.length)]
                     ));
                 }
@@ -703,9 +839,12 @@
             draw() {
                 if (!this.exploded) {
                     this.ctx.beginPath();
-                    this.ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    this.ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
                     this.ctx.fillStyle = 'white';
+                    this.ctx.shadowColor = 'white';
+                    this.ctx.shadowBlur = 10;
                     this.ctx.fill();
+                    this.ctx.shadowBlur = 0;
                 } else {
                     this.particles.forEach(p => p.draw(this.ctx));
                 }
@@ -720,14 +859,14 @@
                 this.vy = vy;
                 this.color = color;
                 this.alpha = 1;
-                this.size = Math.random() * 3 + 2;
+                this.size = Math.random() * 4 + 2;
             }
             
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.vy += 0.05;
-                this.alpha -= 0.01;
+                this.vy += 0.08;
+                this.alpha -= 0.008;
             }
             
             draw(ctx) {
@@ -735,7 +874,10 @@
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fillStyle = this.color;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 10;
                 ctx.fill();
+                ctx.shadowBlur = 0;
                 ctx.globalAlpha = 1;
             }
         }
@@ -751,11 +893,12 @@
             canvas.height = window.innerHeight;
             
             let fireworks = [];
+            let animationFrame;
             
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
-                if (Math.random() < 0.05) {
+                if (Math.random() < 0.1) {
                     fireworks.push(new Firework(canvas, ctx));
                 }
                 
@@ -768,7 +911,9 @@
                     }
                 }
                 
-                requestAnimationFrame(animate);
+                if (fireworksActive) {
+                    animationFrame = requestAnimationFrame(animate);
+                }
             }
             
             fireworksActive = true;
@@ -776,14 +921,16 @@
             
             // Остановить через 30 секунд
             setTimeout(() => {
-                canvas.style.display = 'none';
                 fireworksActive = false;
+                canvas.style.display = 'none';
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                }
             }, 30000);
         }
         
-        // ==================== ОСНОВНЫЕ ФУНКЦИИ ТАЙМЕРА ====================
+        // ==================== ОСНОВНОЙ ТАЙМЕР ====================
         
-        // Счетчик посещений
         function updateVisitorCounter() {
             let visits = localStorage.getItem('pageVisits');
             if (visits) {
@@ -795,46 +942,35 @@
             document.getElementById('visitor-counter').textContent = visits;
         }
         
-        // Создание красивых снежинок
         function createSnowflakes() {
             const snowflakesContainer = document.getElementById('snowflakes');
-            const snowflakeCount = 70;
-            const symbols = ['❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '⭐', '✨'];
+            if (!snowflakesContainer) return;
+            
+            const snowflakeCount = 80;
+            const symbols = ['❄️', '❄️', '❄️', '❄️', '❄️', '⭐', '✨', '❄️', '❄️', '❄️'];
             
             for (let i = 0; i < snowflakeCount; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.classList.add('snowflake');
-                
-                // Случайный символ
                 snowflake.textContent = symbols[Math.floor(Math.random() * symbols.length)];
                 
-                // Случайный размер
                 const size = Math.random() * 20 + 10;
                 snowflake.style.fontSize = `${size}px`;
-                
-                // Случайная позиция
                 snowflake.style.left = `${Math.random() * 100}vw`;
-                
-                // Случайная продолжительность анимации
-                const duration = Math.random() * 10 + 8;
-                snowflake.style.animationDuration = `${duration}s`;
-                
-                // Случайная задержка
+                snowflake.style.animationDuration = `${Math.random() * 10 + 8}s`;
                 snowflake.style.animationDelay = `${Math.random() * 5}s`;
                 
                 snowflakesContainer.appendChild(snowflake);
             }
         }
         
-        // Получение даты следующего Нового года с учетом часового пояса
         function getNextNewYear() {
             const now = new Date();
-            // Корректируем время с учетом выбранного часового пояса
             const mskTime = new Date(now.getTime() + (now.getTimezoneOffset() + 180) * 60000);
             const localTime = new Date(mskTime.getTime() + timezoneOffset * 3600000);
             
             const currentYear = localTime.getFullYear();
-            const nextNewYear = new Date(currentYear + 1, 0, 1, 0, 0, 0, 0);
+            const nextNewYear = new Date(currentYear, 11, 31, 23, 59, 59, 999);
             
             if (localTime > nextNewYear) {
                 return new Date(currentYear + 1, 0, 1, 0, 0, 0, 0);
@@ -843,12 +979,10 @@
             return nextNewYear;
         }
         
-        // Форматирование чисел
         function formatNumber(num) {
             return num < 10 ? `0${num}` : num;
         }
         
-        // Обновление отображения отсчета
         function updateCountdown() {
             const now = new Date();
             const mskTime = new Date(now.getTime() + (now.getTimezoneOffset() + 180) * 60000);
@@ -872,7 +1006,7 @@
             const hours = totalHours % 24;
             const days = totalDays;
             
-            document.getElementById('nextYear').textContent = `До ${newYear.getFullYear()} года осталось:`;
+            document.getElementById('nextYear').textContent = `✨ До ${newYear.getFullYear()} года осталось: ✨`;
             document.getElementById('nextYear').style.display = 'block';
             document.getElementById('newYearMessage').style.display = 'none';
             
@@ -946,18 +1080,15 @@
             countdownElement.innerHTML = countdownHTML;
         }
         
-        // Показать сообщение о наступлении Нового года
         function showNewYearMessage() {
             const newYear = getNextNewYear();
-            document.getElementById('newYearMessage').textContent = `С Новым ${newYear.getFullYear()} годом! 🎉`;
+            document.getElementById('newYearMessage').textContent = `🎉 С Новым ${newYear.getFullYear()} годом! 🎉`;
             document.getElementById('newYearMessage').style.display = 'block';
             document.getElementById('nextYear').style.display = 'none';
             document.getElementById('countdown').innerHTML = '';
             
-            // Запускаем фейерверки
             startFireworks();
             
-            // Включаем музыку
             if (!musicPlaying) {
                 toggleMusic();
             }
@@ -965,20 +1096,12 @@
         
         // ==================== ИНИЦИАЛИЗАЦИЯ ====================
         document.addEventListener('DOMContentLoaded', function() {
-            // Создаем гирлянду
             createGarland();
-            
-            // Создаем снежинки
             createSnowflakes();
-            
-            // Обновляем счетчик посещений
             updateVisitorCounter();
-            
-            // Запускаем таймер
             updateCountdown();
             setInterval(updateCountdown, 1000);
             
-            // Обработчики для кнопок формата
             document.querySelectorAll('.format-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     document.querySelectorAll('.format-btn').forEach(btn => btn.classList.remove('active'));
@@ -988,12 +1111,13 @@
                 });
             });
             
-            // Обработка resize для canvas
             window.addEventListener('resize', () => {
                 const canvas = document.getElementById('fireworks-canvas');
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             });
+            
+            console.log('🎄 Сайт KapDen0 готов к Новому году!');
         });
     </script>
 </body>
