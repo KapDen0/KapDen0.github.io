@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KDen Measurement — Разработка приложений и игр</title>
-    <meta name="description" content="Официальный сайт разработчика KDen Measurement (KapDen0). Приложения и игры для Android в RuStore: Галочка, Схемотека, Библия и другие проекты.">
+    <meta name="description" content="Официальный сайт разработчика KDen Measurement (KapDen0). Приложения и игры для Android в RuStore: Галочка, Схемотека, Библия.">
     <meta name="keywords" content="KDen Measurement, KapDen0, разработчик, приложения, игры, RuStore, Галочка, Схемотека, Библия, Boosty, донат">
     
     <style>
@@ -234,19 +234,6 @@
             border: 1px solid rgba(255, 183, 77, 0.35);
         }
 
-        /* Coming soon / unsupported card */
-        .app-card.disabled {
-            opacity: 0.6;
-            cursor: default;
-            border-style: dashed;
-        }
-
-        .app-card.disabled:hover {
-            transform: none;
-            border-color: #2f3744;
-            box-shadow: none;
-        }
-
         /* Donate block */
         .donate-section {
             margin: 10px 0 45px;
@@ -355,7 +342,7 @@
             <button class="tab-btn" data-tab="games">🎮 Игры</button>
         </div>
 
-        <!-- Приложения -->
+        <!-- Вкладка: ПРИЛОЖЕНИЯ -->
         <div class="tab-content active" id="tab-apps">
             <div class="section-title">📱 Приложения в RuStore</div>
             <div class="apps-grid">
@@ -372,18 +359,6 @@
                     </div>
                 </a>
 
-                <!-- Схемотека -->
-                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.schemoteka" target="_blank" rel="noopener" class="app-card">
-                    <span class="app-icon">🔌</span>
-                    <div class="app-name">Схемотека</div>
-                    <div class="app-desc">Симулятор электрических схем. Собери свою цепь из десятков компонентов: лампы, транзисторы, датчики.</div>
-                    <div class="app-footer">
-                        <!-- МЕНЯТЬ СТАТУС ЗДЕСЬ: badge-active (Активна), badge-maintained (Поддерживается), badge-unsupported (Не поддерживается) -->
-                        <span class="badge badge-maintained">Поддерживается</span>
-                        <span class="app-link">RuStore →</span>
-                    </div>
-                </a>
-
                 <!-- Обычная Библия -->
                 <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.handybible" target="_blank" rel="noopener" class="app-card">
                     <span class="app-icon">📖</span>
@@ -396,54 +371,25 @@
                     </div>
                 </a>
 
-                <!-- Скоро -->
-                <div class="app-card disabled">
-                    <span class="app-icon">🧩</span>
-                    <div class="app-name">Новый проект</div>
-                    <div class="app-desc">Что-то интересное уже в разработке. Следите за обновлениями!</div>
-                    <div class="app-footer">
-                        <span class="badge badge-dev">В разработке</span>
-                    </div>
-                </div>
-
             </div>
         </div>
 
-        <!-- Игры -->
+        <!-- Вкладка: ИГРЫ -->
         <div class="tab-content" id="tab-games">
-            <div class="section-title">🎮 Игры</div>
+            <div class="section-title">🎮 Игры в RuStore</div>
             <div class="apps-grid">
 
-                <!-- Игра 1 -->
-                <div class="app-card disabled">
-                    <span class="app-icon">🕹️</span>
-                    <div class="app-name">Проект «Пиксель»</div>
-                    <div class="app-desc">Ретро-платформер с элементами головоломки. Находится в активной разработке.</div>
-                    <div class="app-footer">
-                        <span class="badge badge-dev">В разработке</span>
-                    </div>
-                </div>
-
-                <!-- Игра 2 -->
-                <div class="app-card disabled">
-                    <span class="app-icon">♟️</span>
-                    <div class="app-name">Шахматы (рабочее название)</div>
-                    <div class="app-desc">Классические шахматы с минималистичным дизайном и ИИ-соперником.</div>
-                    <div class="app-footer">
-                        <span class="badge badge-dev">В планах</span>
-                    </div>
-                </div>
-
-                <!-- Архивная игра -->
-                <div class="app-card disabled">
-                    <span class="app-icon">🎲</span>
-                    <div class="app-name">Старая мини-игра</div>
-                    <div class="app-desc">Простой проект, который больше не обновляется. Доступен в RuStore.</div>
+                <!-- Схемотека -->
+                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.schemoteka" target="_blank" rel="noopener" class="app-card">
+                    <span class="app-icon">🔌</span>
+                    <div class="app-name">Схемотека</div>
+                    <div class="app-desc">Симулятор электрических схем. Собери свою цепь из десятков компонентов: лампы, транзисторы, датчики.</div>
                     <div class="app-footer">
                         <!-- МЕНЯТЬ СТАТУС ЗДЕСЬ: badge-active (Активна), badge-maintained (Поддерживается), badge-unsupported (Не поддерживается) -->
-                        <span class="badge badge-unsupported">Не поддерживается</span>
+                        <span class="badge badge-active">Активна</span>
+                        <span class="app-link">RuStore →</span>
                     </div>
-                </div>
+                </a>
 
             </div>
         </div>
