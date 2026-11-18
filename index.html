@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KDen Neon — Разработка приложений и игр</title>
-    <meta name="description" content="Официальный сайт студии KDen Neon (KapDen0). Приложения и игры для Android в RuStore: Галочка, Схемотека, Библия.">
+    <meta name="description" content="Официальный сайт студии KDen Neon (KapDen0). Приложения и игры для Android в RuStore.">
     <meta name="keywords" content="KDen Neon, KapDen0, разработчик, приложения, игры, RuStore, Галочка, Схемотека, Библия, Boosty, донат">
     
     <style>
@@ -12,49 +12,64 @@
         
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0b0e13 0%, #131a22 100%);
+            background: #090a0f;
+            /* Красивые неоновые пятна на фоне */
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
             color: #cbd5e1;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 30px 20px 20px;
+            padding: 40px 20px 20px;
+            background-attachment: fixed;
         }
 
         .container {
             max-width: 1100px;
             width: 100%;
+            z-index: 1;
         }
 
         /* Header */
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             padding: 20px 0;
+            animation: fadeInDown 0.8s ease;
         }
 
-        /* --- СТИЛИ ДЛЯ ЛОГОТИПА --- */
         .logo-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 22px;
+            width: 110px;
+            height: 110px;
+            border-radius: 28px;
             object-fit: cover;
-            margin: 0 auto 18px;
+            margin: 0 auto 20px;
             display: block;
-            box-shadow: 0 8px 28px rgba(0, 229, 255, 0.35); /* Неоново-голубое свечение */
-            border: 2px solid #00e5ff;
+            box-shadow: 0 10px 40px rgba(0, 229, 255, 0.25); 
+            border: 2px solid rgba(0, 229, 255, 0.6);
+            background: #131a22;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 50px rgba(0, 229, 255, 0.4);
         }
 
         h1 {
-            font-size: 2.4rem;
-            color: #00e5ff; /* Неоновый цвет */
-            margin-bottom: 8px;
-            text-shadow: 0 0 24px rgba(0, 229, 255, 0.4);
+            font-size: 3rem;
+            background: linear-gradient(135deg, #00e5ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
             letter-spacing: -0.5px;
+            font-weight: 800;
         }
 
         .subtitle {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: #8892a0;
             font-weight: 500;
         }
@@ -64,26 +79,27 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 35px;
-            background: rgba(25, 32, 42, 0.7);
+            margin-bottom: 40px;
+            background: rgba(25, 32, 42, 0.4);
+            backdrop-filter: blur(10px);
             padding: 6px;
-            border-radius: 14px;
+            border-radius: 16px;
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
-            border: 1px solid #2f3744;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .tab-btn {
             background: transparent;
             border: none;
             color: #8892a0;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            padding: 12px 28px;
-            border-radius: 10px;
+            padding: 14px 32px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.25s;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -98,47 +114,43 @@
         .tab-btn.active {
             background: linear-gradient(135deg, #00e5ff, #0088cc);
             color: #0b0e13;
-            box-shadow: 0 4px 14px rgba(0, 229, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
         }
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.35s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .section-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #e7ecf3;
-            margin-bottom: 18px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-weight: 700;
         }
 
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
         }
 
         /* Cards */
         .app-card {
-            background: rgba(30, 38, 48, 0.85);
-            border: 1px solid #2f3744;
-            border-radius: 16px;
-            padding: 22px;
-            transition: all 0.3s ease;
+            background: rgba(22, 28, 36, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-decoration: none;
             color: inherit;
             display: flex;
@@ -147,31 +159,50 @@
             overflow: hidden;
         }
 
-        .app-card:hover {
-            transform: translateY(-4px);
-            border-color: #00e5ff;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 229, 255, 0.1);
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .app-icon {
-            font-size: 42px;
-            margin-bottom: 14px;
-            display: block;
-            line-height: 1;
+        .app-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 229, 255, 0.1);
+            background: rgba(26, 32, 42, 0.8);
+        }
+
+        .app-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Место под иконки */
+        .app-icon-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            object-fit: cover;
+            background: #1e2630;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .app-name {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #e7ecf3;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .app-desc {
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             color: #8892a0;
-            line-height: 1.55;
-            margin-bottom: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
             flex-grow: 1;
         }
 
@@ -187,48 +218,58 @@
         .app-link {
             color: #00e5ff;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             text-decoration: none;
+            transition: transform 0.2s ease;
         }
 
-        .app-link:hover {
-            text-decoration: underline;
+        .app-card:hover .app-link {
+            transform: translateX(4px);
         }
 
         /* Status badges */
         .badge {
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
             white-space: nowrap;
         }
 
         .badge-active {
-            background: rgba(0, 229, 255, 0.15);
+            background: rgba(0, 229, 255, 0.1);
             color: #00e5ff;
-            border: 1px solid rgba(0, 229, 255, 0.35);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+        }
+        
+        .badge-new {
+            background: rgba(168, 85, 247, 0.15);
+            color: #d8b4fe;
+            border: 1px solid rgba(168, 85, 247, 0.4);
         }
 
         /* Donate block */
         .donate-section {
-            margin: 10px 0 45px;
-            background: linear-gradient(135deg, rgba(255, 183, 77, 0.08), rgba(255, 138, 128, 0.06));
-            border: 1px solid rgba(255, 183, 77, 0.25);
-            border-radius: 18px;
-            padding: 28px 30px;
+            margin: 10px 0 50px;
+            background: linear-gradient(135deg, rgba(255, 183, 77, 0.08), rgba(255, 138, 128, 0.05));
+            border: 1px solid rgba(255, 183, 77, 0.2);
+            border-radius: 24px;
+            padding: 32px 30px;
             text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
 
         .donate-section h2 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #ffb74d;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -237,8 +278,8 @@
 
         .donate-section p {
             color: #a0aab8;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            margin-bottom: 24px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -252,59 +293,71 @@
             background: linear-gradient(135deg, #ffb74d, #f57c00);
             color: #1a1206;
             font-weight: 800;
-            font-size: 1rem;
-            padding: 14px 34px;
-            border-radius: 12px;
+            font-size: 1.05rem;
+            padding: 16px 40px;
+            border-radius: 14px;
             text-decoration: none;
-            transition: all 0.25s;
-            box-shadow: 0 6px 20px rgba(255, 183, 77, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 8px 24px rgba(255, 183, 77, 0.25);
         }
 
         .donate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(255, 183, 77, 0.45);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(255, 183, 77, 0.4);
         }
 
         /* Footer */
         footer {
             text-align: center;
             margin-top: auto;
-            padding-top: 35px;
-            border-top: 1px solid #1f2730;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
             color: #6b7684;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
         }
 
         footer a {
             color: #00e5ff;
             text-decoration: none;
+            transition: color 0.2s;
         }
 
         footer a:hover {
-            text-decoration: underline;
+            color: #a855f7;
         }
 
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 24px;
             flex-wrap: wrap;
-            margin-top: 10px;
+            margin-top: 12px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 9px; }
-        ::-webkit-scrollbar-track { background: #0b0e13; }
-        ::-webkit-scrollbar-thumb { background: #2f3744; border-radius: 5px; }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #090a0f; }
+        ::-webkit-scrollbar-thumb { background: #1e2630; border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: #00e5ff; }
 
         /* Responsive */
         @media (max-width: 650px) {
-            h1 { font-size: 1.9rem; }
+            h1 { font-size: 2.2rem; }
             .apps-grid { grid-template-columns: 1fr; }
             .tabs { width: 100%; }
-            .tab-btn { flex: 1; justify-content: center; padding: 11px 14px; font-size: 0.92rem; }
-            .donate-section { padding: 22px 18px; }
+            .tab-btn { flex: 1; justify-content: center; padding: 12px 14px; font-size: 0.95rem; }
+            .donate-section { padding: 24px 20px; }
             .donate-btn { width: 100%; justify-content: center; }
         }
     </style>
@@ -313,10 +366,9 @@
     <div class="container">
         <header>
             <!-- Логотип -->
-          <img src="KDen_Neon_Studio_512.png" alt="Логотип KDen Neon" class="logo-img">
-            
+            <img src="KDen_Neon_Studio_512.png" alt="Логотип KDen Neon" class="logo-img">
             <h1>KDen Neon</h1>
-            <p class="subtitle">Свет из кода • Разработка мобильных приложений и игр • KapDen0</p>
+            <p class="subtitle">Свет из кода • Разработка мобильных приложений и игр</p>
         </header>
 
         <!-- Tabs -->
@@ -330,9 +382,9 @@
             <div class="section-title">📱 Приложения в RuStore</div>
             <div class="apps-grid">
                 
-                <!-- Галочка -->
+                <!-- Галочка (СУЩЕСТВУЕТ) -->
                 <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.checkmark" target="_blank" rel="noopener" class="app-card">
-                    <span class="app-icon">✅</span>
+                    <img src="icon_galochka.png" alt="Галочка" class="app-icon-img">
                     <div class="app-name">Галочка — списки</div>
                     <div class="app-desc">Удобный менеджер списков и задач. Календарь, напоминания, синхронизация и тёмная тема.</div>
                     <div class="app-footer">
@@ -341,14 +393,45 @@
                     </div>
                 </a>
 
-                <!-- Обычная Библия -->
+                <!-- Обычная Библия (СУЩЕСТВУЕТ) -->
                 <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.handybible" target="_blank" rel="noopener" class="app-card">
-                    <span class="app-icon">📖</span>
+                    <img src="icon_bible.png" alt="Библия" class="app-icon-img">
                     <div class="app-name">Обычная Библия</div>
                     <div class="app-desc">Библия в вашем телефоне: поиск, закладки, чтение без интернета.</div>
                     <div class="app-footer">
                         <span class="badge badge-active">Активна</span>
                         <span class="app-link">RuStore →</span>
+                    </div>
+                </a>
+
+                <!-- HTML Editor (СУЩЕСТВУЕТ) -->
+                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.htmleditorruncraft" target="_blank" rel="noopener" class="app-card">
+                    <img src="icon_html.png" alt="HTML Editor" class="app-icon-img">
+                    <div class="app-name">HTML Editor Run Craft</div>
+                    <div class="app-desc">Редактор кода HTML, CSS и JS с подсветкой синтаксиса, файловым менеджером и мгновенным запуском проектов.</div>
+                    <div class="app-footer">
+                        <span class="badge badge-new">Новинка</span>
+                        <span class="app-link">RuStore →</span>
+                    </div>
+                </a>
+
+                <!-- Слот под новое приложение 1 -->
+                <a href="#" class="app-card" style="opacity: 0.7; pointer-events: none;">
+                    <img src="icon_new_app1.png" alt="Скоро" class="app-icon-img">
+                    <div class="app-name">Новое приложение</div>
+                    <div class="app-desc">Мы уже работаем над этим. Скоро здесь появится ссылка!</div>
+                    <div class="app-footer">
+                        <span class="badge" style="background: rgba(255,255,255,0.1); color:#8892a0;">В разработке</span>
+                    </div>
+                </a>
+
+                <!-- Слот под новое приложение 2 -->
+                <a href="#" class="app-card" style="opacity: 0.7; pointer-events: none;">
+                    <img src="icon_new_app2.png" alt="Скоро" class="app-icon-img">
+                    <div class="app-name">Новое приложение</div>
+                    <div class="app-desc">Ещё один крутой проект в разработке. Следите за обновлениями!</div>
+                    <div class="app-footer">
+                        <span class="badge" style="background: rgba(255,255,255,0.1); color:#8892a0;">В разработке</span>
                     </div>
                 </a>
 
@@ -360,14 +443,35 @@
             <div class="section-title">🎮 Игры в RuStore</div>
             <div class="apps-grid">
 
-                <!-- Схемотека -->
+                <!-- Схемотека (СУЩЕСТВУЕТ) -->
                 <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.schemoteka" target="_blank" rel="noopener" class="app-card">
-                    <span class="app-icon">🔌</span>
+                    <img src="icon_schemoteka.png" alt="Схемотека" class="app-icon-img">
                     <div class="app-name">Схемотека</div>
                     <div class="app-desc">Симулятор электрических схем. Собери свою цепь из десятков компонентов: лампы, транзисторы, датчики.</div>
                     <div class="app-footer">
                         <span class="badge badge-active">Активна</span>
                         <span class="app-link">RuStore →</span>
+                    </div>
+                </a>
+
+                <!-- ADS Boost (СУЩЕСТВУЕТ, теперь в играх) -->
+                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.adsboost" target="_blank" rel="noopener" class="app-card">
+                    <img src="icon_adsboost.png" alt="ADS Boost" class="app-icon-img">
+                    <div class="app-name">ADS Boost</div>
+                    <div class="app-desc">Динамичная игра, где вам предстоит прокачивать свои навыки и зарабатывать очки.</div>
+                    <div class="app-footer">
+                        <span class="badge badge-active">Активна</span>
+                        <span class="app-link">RuStore →</span>
+                    </div>
+                </a>
+
+                <!-- Слот под новую игру 1 -->
+                <a href="#" class="app-card" style="opacity: 0.7; pointer-events: none;">
+                    <img src="icon_new_game1.png" alt="Скоро" class="app-icon-img">
+                    <div class="app-name">Новая игра</div>
+                    <div class="app-desc">Готовим для вас что-то увлекательное. Релиз уже не за горами!</div>
+                    <div class="app-footer">
+                        <span class="badge" style="background: rgba(255,255,255,0.1); color:#8892a0;">В разработке</span>
                     </div>
                 </a>
 
@@ -389,8 +493,7 @@
                 <a href="mailto:kapdenprog1@gmail.com">✉️ kapdenprog1@gmail.com</a>
                 <a href="https://boosty.to/kapdenprog/donate" target="_blank" rel="noopener">💛 Boosty</a>
             </div>
-            <!-- Ссылка на privacy.html оставлена, так как файл у тебя есть. terms.html убрана, чтобы не было 404 -->
-            <div class="footer-links" style="margin-top: 20px; border-top: 1px solid #1f2730; padding-top: 20px;">
+            <div class="footer-links" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
                 <a href="privacy.html" style="color: #8892a0;">Политика конфиденциальности</a>
             </div>
         </footer>
