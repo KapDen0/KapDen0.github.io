@@ -6,144 +6,254 @@
     <title>KDen Neon — Разработка приложений и игр</title>
     <meta name="description" content="Официальный сайт студии KDen Neon (KapDen0). Приложения и игры для Android в RuStore.">
     <meta name="keywords" content="KDen Neon, KapDen0, разработчик, приложения, игры, RuStore, Галочка, Схемотека, Библия, Boosty, донат">
-    
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             background: #090a0f;
-            /* Красивые неоновые пятна на фоне */
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
+            background-image:
+                radial-gradient(circle at 15% 10%, rgba(0, 229, 255, 0.10) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.10) 0%, transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(0, 229, 255, 0.06) 0%, transparent 45%);
+            background-attachment: fixed;
             color: #cbd5e1;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px 20px;
-            background-attachment: fixed;
+            padding: 0 0 20px;
+            overflow-x: hidden;
+        }
+
+        /* Плавающие неоновые частицы */
+        .bg-particle {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(1px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+            animation: float 18s ease-in-out infinite;
         }
 
         .container {
             max-width: 1100px;
             width: 100%;
             z-index: 1;
+            position: relative;
         }
 
-        /* Header */
+        /* ===== Sticky nav ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            padding: 18px 20px 0;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            max-width: 1100px;
+            width: 100%;
+            padding: 10px 18px;
+            border-radius: 18px;
+            background: rgba(16, 20, 27, 0.72);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .nav-bar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(120px 40px at var(--nx, 20%) 0%, rgba(0,229,255,0.15), transparent 70%);
+            pointer-events: none;
+            transition: background 0.2s;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #e7ecf3;
+            font-weight: 800;
+            font-size: 1.05rem;
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-brand img {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            object-fit: cover;
+            box-shadow: 0 0 12px rgba(0,229,255,0.4);
+        }
+
+        .nav-brand span {
+            background: linear-gradient(135deg, #00e5ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-links a {
+            color: #8892a0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+            padding: 9px 16px;
+            border-radius: 11px;
+            transition: all 0.25s;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: #00e5ff; background: rgba(0,229,255,0.1); }
+        .nav-links a:active { transform: translateY(1px); }
+
+        /* ===== Hero ===== */
         header {
             text-align: center;
-            margin-bottom: 50px;
-            padding: 20px 0;
-            animation: fadeInDown 0.8s ease;
+            padding: 130px 20px 70px;
+            animation: fadeInDown 0.9s ease;
+        }
+
+        .logo-wrap {
+            display: inline-block;
+            position: relative;
+            margin: 0 auto 24px;
+        }
+
+        .logo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 34px;
+            background: conic-gradient(from 0deg, #00e5ff, #a855f7, #00e5ff);
+            filter: blur(18px);
+            opacity: 0.55;
+            z-index: -1;
+            animation: spin 6s linear infinite;
         }
 
         .logo-img {
-            width: 110px;
-            height: 110px;
-            border-radius: 28px;
+            width: 120px;
+            height: 120px;
+            border-radius: 30px;
             object-fit: cover;
-            margin: 0 auto 20px;
             display: block;
-            box-shadow: 0 10px 40px rgba(0, 229, 255, 0.25); 
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 229, 255, 0.25);
             border: 2px solid rgba(0, 229, 255, 0.6);
             background: #131a22;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .logo-img:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 15px 50px rgba(0, 229, 255, 0.4);
-        }
+        .logo-img:hover { transform: scale(1.05) rotate(2deg); box-shadow: 0 15px 50px rgba(0, 229, 255, 0.4); }
 
         h1 {
-            font-size: 3rem;
-            background: linear-gradient(135deg, #00e5ff, #a855f7);
+            font-size: 3.2rem;
+            background: linear-gradient(135deg, #00e5ff, #a855f7, #00e5ff);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
+            animation: gradientShift 6s ease infinite;
+            margin-bottom: 12px;
             font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
-        .subtitle {
-            font-size: 1.1rem;
-            color: #8892a0;
-            font-weight: 500;
-        }
+        .subtitle { font-size: 1.15rem; color: #8892a0; font-weight: 500; }
 
-        /* Tabs */
-        .tabs {
+        .hero-cta {
+            margin-top: 32px;
             display: flex;
+            gap: 16px;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 40px;
-            background: rgba(25, 32, 42, 0.4);
-            backdrop-filter: blur(10px);
-            padding: 6px;
-            border-radius: 16px;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid rgba(255,255,255,0.05);
+            flex-wrap: wrap;
         }
 
-        .tab-btn {
-            background: transparent;
-            border: none;
-            color: #8892a0;
-            font-size: 1.05rem;
-            font-weight: 600;
-            padding: 14px 32px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
+        .btn {
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-family: inherit;
+            gap: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 14px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: 1rem;
         }
 
-        .tab-btn:hover {
-            color: #cbd5e1;
-            background: rgba(0, 229, 255, 0.08);
-        }
-
-        .tab-btn.active {
+        .btn-primary {
             background: linear-gradient(135deg, #00e5ff, #0088cc);
             color: #0b0e13;
-            box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.25);
         }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0, 229, 255, 0.4); }
+
+        .btn-ghost {
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #cbd5e1;
+            background: rgba(255,255,255,0.02);
         }
 
-        .tab-content.active {
-            display: block;
+        .btn-ghost:hover { border-color: rgba(0,229,255,0.4); color: #00e5ff; transform: translateY(-3px); }
+
+        /* ===== Sections ===== */
+        .section {
+            padding: 40px 20px 60px;
+            animation: fadeInUp 0.6s ease;
         }
 
         .section-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #e7ecf3;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             display: flex;
             align-items: center;
             gap: 12px;
             font-weight: 700;
         }
 
+        .section-title .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,229,255,0.4), transparent);
+        }
+
         .apps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 24px;
-            margin-bottom: 50px;
         }
 
-        /* Cards */
+        /* ===== Cards ===== */
         .app-card {
             background: rgba(22, 28, 36, 0.6);
             backdrop-filter: blur(12px);
@@ -157,15 +267,8 @@
             flex-direction: column;
             position: relative;
             overflow: hidden;
-        }
-
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.5), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            cursor: pointer;
+            animation: fadeInUp 0.5s ease backwards;
         }
 
         .app-card:hover {
@@ -175,11 +278,20 @@
             background: rgba(26, 32, 42, 0.8);
         }
 
-        .app-card:hover::before {
-            opacity: 1;
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.6), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        /* Место под иконки */
+        .app-card:hover::before { opacity: 1; }
+
+        .app-card.status-removed { filter: grayscale(0.6) opacity(0.8); cursor: default; }
+        .app-card.status-removed:hover { filter: grayscale(0.2) opacity(1); }
+
         .app-icon-img {
             width: 64px;
             height: 64px;
@@ -189,7 +301,10 @@
             background: #1e2630;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
         }
+
+        .app-card:hover .app-icon-img { transform: scale(1.08) rotate(-2deg); }
 
         .app-name {
             font-size: 1.3rem;
@@ -198,21 +313,37 @@
             margin-bottom: 8px;
         }
 
-        .app-desc {
-            font-size: 0.95rem;
-            color: #8892a0;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            flex-grow: 1;
+        .app-desc { font-size: 0.95rem; color: #8892a0; line-height: 1.6; margin-bottom: 18px; flex-grow: 1; }
+
+        .pro-free { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+
+        .price-free {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .pro-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
         }
 
         .app-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: auto;
             gap: 10px;
             flex-wrap: wrap;
+            margin-top: auto;
         }
 
         .app-link {
@@ -226,11 +357,7 @@
             transition: transform 0.2s ease;
         }
 
-        .app-card:hover .app-link {
-            transform: translateX(4px);
-        }
-
-        /* Status badges */
+        /* ===== Badges ===== */
         .badge {
             font-size: 0.75rem;
             font-weight: 700;
@@ -240,73 +367,118 @@
             letter-spacing: 0.5px;
             white-space: nowrap;
         }
+        .badge-active { background: rgba(0, 229, 255, 0.1); color: #00e5ff; border: 1px solid rgba(0, 229, 255, 0.3); }
+        .badge-new { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); }
+        .badge-removed { background: rgba(244, 63, 94, 0.12); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.35); }
+        .badge-soon { background: rgba(255,255,255,0.08); color: #8892a0; border: 1px solid rgba(255,255,255,0.15); }
 
-        .badge-active {
-            background: rgba(0, 229, 255, 0.1);
-            color: #00e5ff;
-            border: 1px solid rgba(0, 229, 255, 0.3);
+        /* ===== Modal ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 8, 12, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
         }
-        
-        .badge-new {
-            background: rgba(168, 85, 247, 0.15);
-            color: #d8b4fe;
-            border: 1px solid rgba(168, 85, 247, 0.4);
+        .modal-overlay.open { display: flex; animation: fadeIn 0.25s ease; }
+
+        .modal {
+            background: #12171f;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 640px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.3s ease;
         }
 
-        /* Donate block */
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #8892a0;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+        .modal-head { display: flex; gap: 16px; align-items: center; margin-bottom: 20px; }
+        .modal-head img { width: 72px; height: 72px; border-radius: 18px; object-fit: cover; }
+        .modal-head h2 { font-size: 1.5rem; color: #e7ecf3; }
+        .modal-head .badge { margin-top: 6px; display: inline-block; }
+
+        .modal-desc { color: #a0aab8; line-height: 1.7; margin-bottom: 20px; }
+        .modal-features-title { font-weight: 700; color: #e7ecf3; margin-bottom: 12px; }
+        .modal-features { list-style: none; display: grid; gap: 10px; margin-bottom: 24px; }
+        .modal-features li { display: flex; gap: 10px; align-items: flex-start; color: #a0aab8; line-height: 1.5; }
+        .modal-features li::before { content: '✦'; color: #00e5ff; flex-shrink: 0; }
+
+        .modal-pro {
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            background: rgba(251, 191, 36, 0.08);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .modal-pro .pro-price { font-size: 1.4rem; font-weight: 800; color: #fbbf24; }
+        .modal-pro .pro-note { font-size: 0.9rem; color: #a0aab8; flex: 1; min-width: 200px; }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #00e5ff, #0088cc);
+            color: #0b0e13;
+            font-weight: 800;
+            font-size: 1.05rem;
+            padding: 14px 32px;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.25);
+        }
+        .download-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 32px rgba(0, 229, 255, 0.4); }
+
+        /* ===== Donate ===== */
         .donate-section {
-            margin: 10px 0 50px;
+            margin: 20px 0 60px;
             background: linear-gradient(135deg, rgba(255, 183, 77, 0.08), rgba(255, 138, 128, 0.05));
             border: 1px solid rgba(255, 183, 77, 0.2);
             border-radius: 24px;
-            padding: 32px 30px;
+            padding: 40px 30px;
             text-align: center;
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
         }
-
-        .donate-section h2 {
-            font-size: 1.5rem;
-            color: #ffb74d;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .donate-section p {
-            color: #a0aab8;
-            font-size: 1rem;
-            margin-bottom: 24px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-        }
-
+        .donate-section h2 { font-size: 1.6rem; color: #ffb74d; margin-bottom: 12px; }
+        .donate-section p { color: #a0aab8; font-size: 1rem; margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6; }
         .donate-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            display: inline-flex; align-items: center; gap: 10px;
             background: linear-gradient(135deg, #ffb74d, #f57c00);
-            color: #1a1206;
-            font-weight: 800;
-            font-size: 1.05rem;
-            padding: 16px 40px;
-            border-radius: 14px;
-            text-decoration: none;
+            color: #1a1206; font-weight: 800; font-size: 1.05rem;
+            padding: 16px 40px; border-radius: 14px; text-decoration: none;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             box-shadow: 0 8px 24px rgba(255, 183, 77, 0.25);
         }
+        .donate-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 32px rgba(255, 183, 77, 0.4); }
 
-        .donate-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 32px rgba(255, 183, 77, 0.4);
-        }
-
-        /* Footer */
+        /* ===== Footer ===== */
         footer {
             text-align: center;
             margin-top: auto;
@@ -315,177 +487,85 @@
             color: #6b7684;
             font-size: 0.9rem;
         }
+        footer a { color: #00e5ff; text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: #a855f7; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 12px; }
 
-        footer a {
-            color: #00e5ff;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
+        /* ===== Animations ===== */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.92) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes float { 0%, 100% { transform: translate(0,0); } 33% { transform: translate(25px,-30px); } 66% { transform: translate(-20px,20px); } }
+        @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-        footer a:hover {
-            color: #a855f7;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #090a0f; }
         ::-webkit-scrollbar-thumb { background: #1e2630; border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: #00e5ff; }
 
-        /* Responsive */
         @media (max-width: 650px) {
-            h1 { font-size: 2.2rem; }
+            h1 { font-size: 2.3rem; }
             .apps-grid { grid-template-columns: 1fr; }
-            .tabs { width: 100%; }
-            .tab-btn { flex: 1; justify-content: center; padding: 12px 14px; font-size: 0.95rem; }
-            .donate-section { padding: 24px 20px; }
-            .donate-btn { width: 100%; justify-content: center; }
+            header { padding: 60px 16px 50px; }
+            .modal { padding: 24px; }
+            .nav a { font-size: 0.85rem; padding: 7px 10px; }
         }
     </style>
 </head>
 <body>
+
+    <div id="particles"></div>
+
+    <nav class="nav">
+        <div class="nav-bar">
+            <a class="nav-brand" href="#top">
+                <img src="KDen_Neon_Studio_512.png" alt="KDen Neon">
+                <span>KDen Neon</span>
+            </a>
+            <div class="nav-links">
+                <a href="#apps">📱 Приложения</a>
+                <a href="#games">🎮 Игры</a>
+                <a href="#support">☕ Поддержка</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
+        <!-- Hero -->
         <header>
-            <!-- Логотип -->
-            <img src="KDen_Neon_Studio_512.png" alt="Логотип KDen Neon" class="logo-img">
+            <div class="logo-wrap">
+                <img src="KDen_Neon_Studio_512.png" alt="Логотип KDen Neon" class="logo-img">
+            </div>
             <h1>KDen Neon</h1>
-            <p class="subtitle">Свет из кода • Разработка мобильных приложений и игр</p>
+            <p class="subtitle">Свет из кода • Разработка мобильных приложений и игр для Android</p>
+            <div class="hero-cta">
+                <a href="#apps" class="btn btn-primary">📱 Смотреть приложения</a>
+                <a href="#games" class="btn btn-ghost">🎮 Игры</a>
+            </div>
         </header>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="apps">📱 Приложения</button>
-            <button class="tab-btn" data-tab="games">🎮 Игры</button>
-        </div>
+        <!-- Приложения -->
+        <section class="section" id="apps">
+            <div class="section-title">📱 Приложения <span class="line"></span></div>
+            <div id="apps-grid" class="apps-grid"></div>
+        </section>
 
-        <!-- Вкладка: ПРИЛОЖЕНИЯ -->
-        <div class="tab-content active" id="tab-apps">
-            <div class="section-title">📱 Приложения в RuStore</div>
-            <div class="apps-grid">
-                
-                <!-- Галочка (СУЩЕСТВУЕТ) -->
-                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.checkmark" target="_blank" rel="noopener" class="app-card">
-                    <img src="icon_galochka.png" alt="Галочка" class="app-icon-img">
-                    <div class="app-name">Галочка — списки</div>
-                    <div class="app-desc">Удобный менеджер списков и задач. Календарь, напоминания, синхронизация и тёмная тема.</div>
-                    <div class="app-footer">
-                        <span class="badge badge-active">Активна</span>
-                        <span class="app-link">RuStore →</span>
-                    </div>
-                </a>
-
-                <!-- Обычная Библия (СУЩЕСТВУЕТ) -->
-                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.handybible" target="_blank" rel="noopener" class="app-card">
-                    <img src="icon_bible.png" alt="Библия" class="app-icon-img">
-                    <div class="app-name">Обычная Библия</div>
-                    <div class="app-desc">Библия в вашем телефоне: поиск, закладки, чтение без интернета.</div>
-                    <div class="app-footer">
-                        <span class="badge badge-active">Активна</span>
-                        <span class="app-link">RuStore →</span>
-                    </div>
-                </a>
-
-                <!-- HTML Editor (СУЩЕСТВУЕТ) -->
-                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.htmleditorruncraft" target="_blank" rel="noopener" class="app-card">
-                    <img src="icon_html.png" alt="HTML Editor" class="app-icon-img">
-                    <div class="app-name">HTML Editor Run Craft</div>
-                    <div class="app-desc">Редактор кода HTML, CSS и JS с подсветкой синтаксиса, файловым менеджером и мгновенным запуском проектов.</div>
-                    <div class="app-footer">
-                        <span class="badge badge-new">Новинка</span>
-                        <span class="app-link">RuStore →</span>
-                    </div>
-                </a>
-
-                <!-- Слот под новое приложение 1 -->
-                <a href="#" class="app-card" style="opacity: 0.7; pointer-events: none;">
-                    <img src="icon_new_app1.png" alt="Скоро" class="app-icon-img">
-                    <div class="app-name">Новое приложение</div>
-                    <div class="app-desc">Мы уже работаем над этим. Скоро здесь появится ссылка!</div>
-                    <div class="app-footer">
-                        <span class="badge" style="background: rgba(255,255,255,0.1); color:#8892a0;">В разработке</span>
-                    </div>
-                </a>
-
-                <!-- Слот под новое приложение 2 -->
-                <a href="#" class="app-card" style="opacity: 0.7; pointer-events: none;">
-                    <img src="icon_new_app2.png" alt="Скоро" class="app-icon-img">
-                    <div class="app-name">Новое приложение</div>
-                    <div class="app-desc">Ещё один крутой проект в разработке. Следите за обновлениями!</div>
-                    <div class="app-footer">
-                        <span class="badge" style="background: rgba(255,255,255,0.1); color:#8892a0;">В разработке</span>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-        <!-- Вкладка: ИГРЫ -->
-        <div class="tab-content" id="tab-games">
-            <div class="section-title">🎮 Игры в RuStore</div>
-            <div class="apps-grid">
-
-                <!-- Схемотека (СУЩЕСТВУЕТ) -->
-                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.schemoteka" target="_blank" rel="noopener" class="app-card">
-                    <img src="icon_schemoteka.png" alt="Схемотека" class="app-icon-img">
-                    <div class="app-name">Схемотека</div>
-                    <div class="app-desc">Симулятор электрических схем. Собери свою цепь из десятков компонентов: лампы, транзисторы, датчики.</div>
-                    <div class="app-footer">
-                        <span class="badge badge-active">Активна</span>
-                        <span class="app-link">RuStore →</span>
-                    </div>
-                </a>
-
-                <!-- ADS Boost (СУЩЕСТВУЕТ, теперь в играх) -->
-                <a href="https://www.rustore.ru/catalog/app/com.kdenstudiomeasurement.adsboost" target="_blank" rel="noopener" class="app-card">
-                    <img src="icon_adsboost.png" alt="ADS Boost" class="app-icon-img">
-                    <div class="app-name">ADS Boost</div>
-                    <div class="app-desc">Динамичная игра, где вам предстоит прокачивать свои навыки и зарабатывать очки.</div>
-                    <div class="app-footer">
-                        <span class="badge badge-active">Активна</span>
-                        <span class="app-link">RuStore →</span>
-                    </div>
-                </a>
-
-                <!-- Слот под новую игру 1 -->
-                <a href="#" class="app-card" style="opacity: 0.7; pointer-events: none;">
-                    <img src="icon_new_game1.png" alt="Скоро" class="app-icon-img">
-                    <div class="app-name">Новая игра</div>
-                    <div class="app-desc">Готовим для вас что-то увлекательное. Релиз уже не за горами!</div>
-                    <div class="app-footer">
-                        <span class="badge" style="background: rgba(255,255,255,0.1); color:#8892a0;">В разработке</span>
-                    </div>
-                </a>
-
-            </div>
-        </div>
+        <!-- Игры -->
+        <section class="section" id="games">
+            <div class="section-title">🎮 Игры <span class="line"></span></div>
+            <div id="games-grid" class="apps-grid"></div>
+        </section>
 
         <!-- Donate -->
-        <div class="donate-section">
+        <section class="donate-section" id="support">
             <h2>☕ Поддержать разработчика</h2>
             <p>Ваша поддержка помогает выпускать обновления чаще, исправлять ошибки и создавать новые проекты. Спасибо!</p>
             <a href="https://boosty.to/kapdenprog/donate" target="_blank" rel="noopener" class="donate-btn">
                 💰 Поддержать на Boosty
             </a>
-        </div>
+        </section>
 
         <footer>
             <p>© 2026 KDen Neon. Все права защищены.</p>
@@ -499,21 +579,176 @@
         </footer>
     </div>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close">✕</button>
+            <div class="modal-head">
+                <img id="modal-icon" src="" alt="">
+                <div>
+                    <h2 id="modal-name"></h2>
+                    <span class="badge" id="modal-badge"></span>
+                </div>
+            </div>
+            <p class="modal-desc" id="modal-desc"></p>
+            <div class="modal-features-title">✨ Возможности</div>
+            <ul class="modal-features" id="modal-features"></ul>
+            <div id="modal-pro"></div>
+            <div id="modal-download"></div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
     <script>
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
+        /* ---------- Утилиты ---------- */
+        const STATUS = {
+            active:  { className: 'badge-active',  text: 'Активно' },
+            new:     { className: 'badge-new',     text: 'Новинка' },
+            removed: { className: 'badge-removed', text: 'Снято с публикации' },
+            soon:    { className: 'badge-soon',    text: 'В разработке' }
+        };
 
-        tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const target = btn.getAttribute('data-tab');
+        function badge(html, style) {
+            return '<span class="badge ' + (style || '') + '">' + html + '</span>';
+        }
 
-                tabButtons.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
+        function priceBlock(item) {
+            if (item.status === 'removed' || item.status === 'soon') return '';
+            let html = '';
+            if (item.proPrice != null) {
+                html += '<span class="price-free">Бесплатно</span><span class="pro-tag">Pro ' + item.proPrice + ' ₽</span>';
+            } else {
+                html += '<span class="price-free">Бесплатно</span>';
+            }
+            return '<div class="pro-free">' + html + '</div>';
+        }
 
-                btn.classList.add('active');
-                document.getElementById('tab-' + target).classList.add('active');
+        function card(item) {
+            const st = STATUS[item.status] || STATUS.active;
+            const disabled = item.status === 'removed' || item.status === 'soon';
+            const href = disabled ? '#' : (item.link || '#');
+            let link = disabled ? '' : '<span class="app-link">' + (item.linkText || 'Скачать →') + '</span>';
+
+            return '<div class="app-card status-' + item.status + '" data-name="' + item.name + '" ' + (disabled ? '' : 'onclick="openByName(\'' + item.name + '\')"') + '>' +
+                '<img src="' + item.icon + '" alt="' + item.name + '" class="app-icon-img">' +
+                '<div class="app-name">' + item.name + '</div>' +
+                '<div class="app-desc">' + item.short + '</div>' +
+                priceBlock(item) +
+                '<div class="app-footer">' + badge(st.text, st.className) + link + '</div>' +
+                '</div>';
+        }
+
+        /* ---------- Рендер ---------- */
+        function renderGrid(items, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = items.map(card).join('');
+            container.childNodes.forEach(function (el, i) {
+                if (el.nodeType === 1) el.style.animationDelay = (i * 0.08) + 's';
+            });
+        }
+
+        renderGrid(APPS, 'apps-grid');
+        renderGrid(GAMES, 'games-grid');
+
+        /* ---------- Модалка ---------- */
+        const overlay = document.getElementById('modal-overlay');
+        const modalIcon = document.getElementById('modal-icon');
+        const modalName = document.getElementById('modal-name');
+        const modalBadge = document.getElementById('modal-badge');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalFeatures = document.getElementById('modal-features');
+        const modalPro = document.getElementById('modal-pro');
+        const modalDownload = document.getElementById('modal-download');
+
+        function openItem(item) {
+            modalName.textContent = item.name;
+            modalIcon.src = item.icon;
+            const st = STATUS[item.status] || STATUS.active;
+            modalBadge.className = 'badge ' + st.className;
+            modalBadge.textContent = st.text;
+            modalDesc.textContent = item.desc;
+            modalFeatures.innerHTML = (item.features || []).map(function (f) { return '<li>' + f + '</li>'; }).join('');
+
+            // Pro-блок
+            modalPro.innerHTML = '';
+            if (item.proPrice != null) {
+                const box = document.createElement('div');
+                box.className = 'modal-pro';
+                box.innerHTML = '<span class="pro-price">Pro — ' + item.proPrice + ' ₽</span>' +
+                    '<span class="pro-note">Скачайте приложение бесплатно в RuStore — Pro-версия открывается внутри приложения как внутренняя покупка.</span>';
+                modalPro.appendChild(box);
+            }
+
+            // Кнопка скачивания
+            modalDownload.innerHTML = '';
+            if (item.link) {
+                const a = document.createElement('a');
+                a.className = 'download-btn';
+                a.href = item.link;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.textContent = item.linkText || 'Скачать бесплатно на RuStore';
+                modalDownload.appendChild(a);
+            }
+            overlay.classList.add('open');
+        }
+
+        function closeModal() { overlay.classList.remove('open'); }
+
+        const ALL = APPS.concat(GAMES);
+        window.openByName = function (name) {
+            const item = ALL.find(function (x) { return x.name === name; });
+            if (item) openItem(item);
+        };
+
+        document.getElementById('modal-close').addEventListener('click', closeModal);
+        overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+        /* ---------- Навигация: свечение за курсором ---------- */
+        const navBar = document.querySelector('.nav-bar');
+        navBar.addEventListener('mousemove', function (e) {
+            const r = navBar.getBoundingClientRect();
+            const nx = ((e.clientX - r.left) / r.width) * 100;
+            navBar.style.setProperty('--nx', nx + '%');
+        });
+
+        /* ---------- Подсветка активной секции при прокрутке ---------- */
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const navSections = ['apps', 'games', 'support'].map(function (id) {
+            return document.getElementById(id);
+        });
+        window.addEventListener('scroll', function () {
+            const pos = window.scrollY + 120;
+            let current = 'apps';
+            navSections.forEach(function (sec) {
+                if (sec && pos >= sec.offsetTop) current = sec.id;
+            });
+            const foot = document.querySelector('footer');
+            if (foot && window.scrollY + window.innerHeight >= document.body.scrollHeight - 60) current = 'support';
+            navLinks.forEach(function (a) {
+                const active = a.getAttribute('href') === '#' + current;
+                a.style.color = active ? '#00e5ff' : '';
+                a.style.background = active ? 'rgba(0,229,255,0.12)' : '';
             });
         });
+
+        /* ---------- Частицы ---------- */
+        const colors = ['#00e5ff', '#a855f7', '#7c3aed', '#00b3d9'];
+        const particleBox = document.getElementById('particles');
+        for (let i = 0; i < 14; i++) {
+            const p = document.createElement('div');
+            p.className = 'bg-particle';
+            const size = 3 + Math.random() * 6;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.left = (Math.random() * 100) + 'vw';
+            p.style.top = (Math.random() * 100) + 'vh';
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            p.style.animationDelay = (Math.random() * 18) + 's';
+            p.style.animationDuration = (14 + Math.random() * 12) + 's';
+            particleBox.appendChild(p);
+        }
     </script>
 </body>
 </html>
